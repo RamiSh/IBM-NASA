@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { NasaPhotosComponent } from './nasa-photos/nasa-photos.component';
-import { PhotosService } from './photos.service';
+import { PhotosService } from './services/photos.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule
   ],
   providers: [PhotosService],
   bootstrap: [AppComponent]

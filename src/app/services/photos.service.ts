@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Photo } from './modules/photo-module';
-import { environment } from '../environments/environment';
+import { Photo } from '../modules/photo-module';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * A service handles operations on the Photo object.
+ */
 export class PhotosService {
 
   private headers: HttpHeaders;
@@ -15,6 +19,9 @@ export class PhotosService {
 
   constructor(private _http: HttpClient) { }
 
+  /**
+   * Builds the commonly used headers for http requests.
+   */
   private buildHeaders() {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -23,6 +30,10 @@ export class PhotosService {
     });
   }
 
+  /**
+   * Returns an observable of Photo[] containing photos from NASA Account on flickr.
+   * @param pageNumber Starting page
+   */
   public getPhotos(pageNumber: number): Observable<Photo[]> {
     this.buildHeaders();
     return this._http.get<Photo[]>(`${this.path}?page=${pageNumber}`, { headers: this.headers });

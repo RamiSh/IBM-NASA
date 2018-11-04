@@ -1,3 +1,13 @@
-<p>
-  nasa-photos works and it loaded {{photos.length}} photos.
-</p>
+
+<div class="header">
+  You have loaded {{photos.length}} photos <i class="fa fa-camera-retro"></i> so far. Keep scrolling for more! <i class="fa fa-angle-double-down"></i>
+</div>
+<i class="far fa-images"></i>
+<div class="container" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScroll()">
+
+  <div class="photoHolder" *ngFor="let photo of photos">
+    <img src={{photo.url}} />
+    <div class="photoTitle">{{photo.title}}</div>
+  </div>
+</div>

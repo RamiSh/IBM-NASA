@@ -1,0 +1,23 @@
+.header {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  font-family: Roboto;
+  font-size: 16px;
+  color: green;
+}
+
+.container {
+  font-family: Roboto;
+  text-align: center;
+}
+
+.photoHolder {
+  padding: 10px 0 10px 0;
+}
+
+.photoTitle{
+    font-size:11px;
+}

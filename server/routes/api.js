@@ -30,6 +30,4 @@ router.get('/photos', (req, res) => {
   });
 });
 
-
-
 module.exports = router;
