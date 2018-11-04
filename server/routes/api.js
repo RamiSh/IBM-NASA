@@ -12,11 +12,11 @@ const sendError = (err, res) => {
   res.status(501).json(response);
 };
 
-router.get('/pictures', (req, res) => {
+router.get('/photos', (req, res) => {
   var pageRequested = req.query.page;
   pageRequested = !pageRequested ? config.flickr.page : pageRequested;
 
-  var perPageRequested = req.query.page;
+  var perPageRequested = req.query.perPage;
   perPageRequested = !perPageRequested ? config.flickr.perPage : perPageRequested;
 
   const requestUrl = `${config.flickr.defaultRest}&per_page=${perPageRequested}&page=${pageRequested}`;
@@ -25,8 +25,8 @@ router.get('/pictures', (req, res) => {
     if (error) {
       sendError(err, res);
     }
-
-    res.status(200).json(JSON.parse(innerRes.body));
+    var resAsJson = JSON.parse(innerRes.body);
+    res.status(200).json(resAsJson.photos.photo);
   });
 });
 
