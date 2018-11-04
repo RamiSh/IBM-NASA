@@ -26,6 +26,7 @@
     "joi": "^14.0.4",
     "ngx-infinite-scroll": "^6.0.1",
     "nodemon": "^1.18.5",
+    "primeng": "^7.0.0-beta.1",
     "request": "^2.88.0",
     "roboto-fontface": "^0.10.0",
     "rxjs": "^6.0.0",
