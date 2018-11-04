@@ -13,14 +13,23 @@ const sendError = (err, res) => {
 };
 
 router.get('/photos', (req, res) => {
-  var pageRequested = req.query.page;
-  pageRequested = !pageRequested ? config.flickr.page : pageRequested;
+  const pageRequested = req.query.page ? req.query.page : config.flickr.page;
+  const perPageRequested = req.query.per_page ? req.query.per_page : config.flickr.perPage;
+  const requestUrl = `${config.flickr.api.peoplePhotoUrl}&per_page=${perPageRequested}&page=${pageRequested}`;
 
-  var perPageRequested = req.query.perPage;
-  perPageRequested = !perPageRequested ? config.flickr.perPage : perPageRequested;
+  executeGet(requestUrl, res);
+});
 
-  const requestUrl = `${config.flickr.defaultRest}&per_page=${perPageRequested}&page=${pageRequested}`;
+router.post('/photos', (req, res) => {
+  const pageRequested = req.query.page ? req.query.page : config.flickr.page;
+  const perPageRequested = req.query.per_page ? req.query.per_page : config.flickr.perPage;
+  const searchText = req.body.searchText ? req.body.searchText : '';
+  const requestUrl = `${config.flickr.api.searchPhotoUrl}&text=${searchText}&per_page=${perPageRequested}&page=${pageRequested}`;
 
+  executeGet(requestUrl, res);
+});
+
+const executeGet = (requestUrl, res) => {
   request.get(requestUrl, (error, innerRes) => {
     if (error) {
       sendError(err, res);
@@ -28,6 +37,5 @@ router.get('/photos', (req, res) => {
     var resAsJson = JSON.parse(innerRes.body);
     res.status(200).json(resAsJson.photos.photo);
   });
-});
-
+}
 module.exports = router;
