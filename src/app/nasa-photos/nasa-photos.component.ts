@@ -53,7 +53,7 @@ export class NasaPhotosComponent implements OnInit {
   }
 
   /**
-   * Clears the searches results and gets public photos 
+   * Clears the searches results and gets public photos
    */
   private clearSearch() {
     this.isSearchOn = false;
