@@ -17,10 +17,14 @@ router.get('/photos', (req, res) => {
   const perPageRequested = req.query.per_page ? req.query.per_page : config.flickr.perPage;
   const requestUrl = `${config.flickr.api.peoplePhotoUrl}&per_page=${perPageRequested}&page=${pageRequested}`;
 
+  console.log(`Getting photos for page ${pageRequested}`);
+  
   executeGet(requestUrl, res);
 });
 
 router.post('/photos', (req, res) => {
+  console.log(`Searching for ${req.body.searchText}`);
+
   const pageRequested = req.query.page ? req.query.page : config.flickr.page;
   const perPageRequested = req.query.per_page ? req.query.per_page : config.flickr.perPage;
   const searchText = req.body.searchText ? req.body.searchText : '';

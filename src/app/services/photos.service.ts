@@ -5,6 +5,14 @@ import { Observable } from 'rxjs';
 import { Photo } from '../modules/photo-module';
 import { environment } from '../../environments/environment';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,5 +45,15 @@ export class PhotosService {
   public getPhotos(pageNumber: number): Observable<Photo[]> {
     this.buildHeaders();
     return this._http.get<Photo[]>(`${this.path}?page=${pageNumber}`, { headers: this.headers });
+  }
+
+  /**
+   * Searches through NASA's public photos on flickr. This will search photos title, tag, and description.
+   * @param pageNumber Starting page.
+   * @param searchText Text to search for
+   */
+  public searchPhotos(pageNumber: number, searchText: string): Observable<Photo[]> {
+    this.buildHeaders();
+    return this._http.post<Photo[]>(`${this.path}?page=${pageNumber}`, {searchText : searchText}, httpOptions);
   }
 }

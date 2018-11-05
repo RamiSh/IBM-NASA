@@ -1,7 +1,28 @@
-
 <div class="header">
-  You have loaded {{photos.length}} photos <i class="fa fa-camera-retro"></i> so far. Keep scrolling for more! <i class="fa fa-angle-double-down"></i>
+  <p-card header="NASA Photos loader">
+    <div>You have loaded {{photos.length}} photos <i class="fa fa-camera-retro"></i> so far. Keep scrolling for more!
+      <i class="fa fa-angle-double-down"></i></div>
+    <div class="search-container">
+      <hr>
+      <h3>Search: <span class="search-title tiny-note">This will search by title, tag and description</span></h3>
+      <div class="ui-float-label">
+        <input id="float-input" type="text" size="30" [(ngModel)]="searchText" (keyup)="keyPressed($event)" pInputText>
+        <label for="float-input">Search Text</label>
+        <button pButton type="button" class="ui-button-raised ui-button-rounded search-button" label="Search" (click)="searchButtonClicked()"
+          [disabled]="!searchText || searchText.length == 0"></button>
+        <button pButton type="button" class="ui-button-raised ui-button-rounded search-button" label="Clear Search"
+          (click)="clearSearch()" [disabled]="!isSearchOn"></button>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <h4>search on - ({{isSearchOn}})</h4>
+      <p-inputSwitch [(ngModel)]="isSearchOn" disabled="true"></p-inputSwitch>
+      <div class="tiny-note">When search is on (i.e.: true) the scroll will fetch new photos related to the search.</div>
+    </div>
+  </p-card>
 </div>
+
 <i class="far fa-images"></i>
 <div class="container" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScroll()">
