@@ -1,13 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PhotosService } from '../services/photos.service';
 import { Photo } from '../modules/photo-module';
+import 'rxjs';
+import { map } from 'rxjs/operators'
+import { Subscription } from 'rxjs';
+
+
+/**
+ * Generates photos url based on a pre-defined formula.
+ */
+const generatePhotoUrl = map((photos: Photo[]) => {
+  if (photos) {
+    photos.forEach(p => {
+      p.url = `https://farm${p.farm}.staticflickr.com/${p.server}/${p.id}_${p.secret}.jpg`;
+    });
+  }
+  return photos;
+});
 
 @Component({
   selector: 'app-nasa-photos',
   templateUrl: './nasa-photos.component.html',
   styleUrls: ['./nasa-photos.component.css']
 })
-export class NasaPhotosComponent implements OnInit {
+export class NasaPhotosComponent implements OnInit, OnDestroy {
 
   photos: Photo[] = [];
 
@@ -19,6 +35,9 @@ export class NasaPhotosComponent implements OnInit {
   scrollDistance = 1;
 
   isSearchOn = false;
+
+  photosLoaderSubscription: Subscription;
+  photosSearchSubscription: Subscription;
 
   constructor(private photosService: PhotosService) { }
 
@@ -42,14 +61,10 @@ export class NasaPhotosComponent implements OnInit {
    * @param page Starting page.
    */
   private getPhotos(page: number): void {
-    this.photosService.getPhotos(page).subscribe(photos => {
-      if (photos) {
-        photos.forEach(p => {
-          p.url = `https://farm${p.farm}.staticflickr.com/${p.server}/${p.id}_${p.secret}.jpg`;
-        });
+    this.photosLoaderSubscription = this.photosService.getPhotos(page).pipe(
+      generatePhotoUrl).subscribe((photos) => {
         this.photos = [...this.photos, ...photos];
-      }
-    });
+      });
   }
 
   /**
@@ -81,15 +96,10 @@ export class NasaPhotosComponent implements OnInit {
    * @param searchTText Text to search for
    */
   private search(page: number, searchTText: string) {
-    this.photosService.searchPhotos(page, searchTText).subscribe(photos => {
-      if (photos) {
-        photos.forEach(p => {
-          p.url = `https://farm${p.farm}.staticflickr.com/${p.server}/${p.id}_${p.secret}.jpg`;
-        });
-
+    this.photosSearchSubscription = this.photosService.searchPhotos(page, searchTText).pipe(
+      generatePhotoUrl).subscribe((photos) => {
         this.photos = [...this.photos, ...photos];
-      }
-    });
+      });
   }
 
   /**
@@ -102,4 +112,10 @@ export class NasaPhotosComponent implements OnInit {
     }
 
   }
+
+  ngOnDestroy(): void {
+    this.photosLoaderSubscription.unsubscribe();
+    this.photosSearchSubscription.unsubscribe();
+  }
+
 }
