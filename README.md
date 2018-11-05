@@ -17,6 +17,9 @@ The `server.js` file and the `server` folder represent the backbone of this proj
   - `page` is from what page to start loading photos
   - `per_page` number of photos to return per page
 
+## Pre-Requisites
+- Node.js -- Currently using v10.13.0
+
 ## How to run the project?
 - Navigate to the project directory
 - Run `npm install` to get the required modules from npm feed
@@ -25,7 +28,7 @@ The `server.js` file and the `server` folder represent the backbone of this proj
 - Finally; Navigate to http://localhost:4600 
 
 ## UI framework
-- The tool uses `angular6` as the frontend framework (typescript)
+- The tool uses `angular6` as the frontend framework (typescript 3.1.3)
 - The tools uses the `primeng` components
 
 ## Contact me?
