@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PhotosService } from '../services/photos.service';
 import { Photo } from '../modules/photo-module';
-import 'rxjs';
 import { map } from 'rxjs/operators'
 import { Subscription } from 'rxjs';
 
