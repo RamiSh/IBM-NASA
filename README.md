@@ -12,8 +12,8 @@ The `server.js` file and the `server` folder represent the backbone of this proj
 - The `[get]` `api/photos` endpoint takes two parameters `page`, and `per_page` and returns photos for the NASA flickr user id
   - `page` is from what page to start loading photos
   - `per_page` number of photos to return per page
-- The `[post]` `api/photos` endpoint is the search endpoint for the project. It takes three parameters `keyword`, `page`, and `per_page` and returns photos for the NASA flickr user id
-  - `keyword` string to search for (searches in the photos titles)
+- The `[post]` `api/photos` endpoint is the search endpoint for the project. It takes three parameters `searchText`, `page`, and `per_page` and returns photos for the NASA flickr user id
+  - `SearchText` string to search for (searches in the photos titles)
   - `page` is from what page to start loading photos
   - `per_page` number of photos to return per page
 
