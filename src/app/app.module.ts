@@ -10,13 +10,15 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import {CardModule} from 'primeng/card';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { CardModule } from 'primeng/card';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { PhotosFilterPipe } from './pipes/photos-filter-pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NasaPhotosComponent,
+    PhotosFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +29,9 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     InputTextModule,
     ButtonModule,
     CardModule,
-    InputSwitchModule
+    InputSwitchModule,
   ],
   providers: [PhotosService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

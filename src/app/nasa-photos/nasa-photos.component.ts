@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PhotosService } from '../services/photos.service';
 import { Photo } from '../modules/photo-module';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 
@@ -29,11 +29,13 @@ export class NasaPhotosComponent implements OnInit, OnDestroy {
   currentPage = 20;
   searchCurrentPage = 1;
   searchText = '';
+  filterText = '';
 
   throttle = 300;
   scrollDistance = 1;
 
   isSearchOn = false;
+  isFilterOn = false;
 
   photosLoaderSubscription: Subscription;
   photosSearchSubscription: Subscription;
@@ -47,7 +49,10 @@ export class NasaPhotosComponent implements OnInit, OnDestroy {
   /**
    * Happens when a user scrolls to the end of the web page.
    */
-  onScroll() {
+  onScroll(): void {
+    if (this.isFilterOn) {
+      return;
+    }
     if (!this.isSearchOn) {
       this.getPhotos(this.currentPage++);
     } else {
@@ -109,12 +114,18 @@ export class NasaPhotosComponent implements OnInit, OnDestroy {
     if (event.key === 'Enter') {
       this.searchButtonClicked();
     }
+  }
 
+  /**
+   * Clears filtering.
+   */
+  public clearFilter() {
+    this.isFilterOn = false;
+    this.filterText = '';
   }
 
   ngOnDestroy(): void {
     this.photosLoaderSubscription.unsubscribe();
     this.photosSearchSubscription.unsubscribe();
   }
-
 }

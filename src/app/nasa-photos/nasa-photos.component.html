@@ -15,19 +15,29 @@
       </div>
     </div>
     <div>
-      <hr>
       <h4>search on - ({{isSearchOn}})</h4>
       <p-inputSwitch [(ngModel)]="isSearchOn" disabled="true"></p-inputSwitch>
       <div class="tiny-note">When search is on (i.e.: true) the scroll will fetch new photos related to the search.</div>
     </div>
+    <hr>
+    <h3>Filter: <span class="tiny-note">This will filter current content on the page.</span></h3>
+    <div class="ui-float-label">
+      <input id="float-input" type="text" size="30" [(ngModel)]="filterText" (keyup)="isFilterOn = filterText.length > 0 ? true: false"
+        pInputText>
+      <label for="float-input">Filter Text</label>
+      <button pButton type="button" class="ui-button-raised ui-button-rounded search-button" label="Clear Filter"
+        (click)="clearFilter()" [disabled]="!isFilterOn"></button>
+    </div>
+    <h4>Infinite scrolling on - ({{!isFilterOn}})</h4>
+    <p-inputSwitch [(ngModel)]="!isFilterOn" disabled="true"></p-inputSwitch>
+    <div class="tiny-note">When Filtering is on (i.e.: true) the Infinite scrolling will be disabled.</div>
   </p-card>
 </div>
 
 <i class="far fa-images"></i>
 <div class="container" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
   (scrolled)="onScroll()">
-
-  <div class="photoHolder" *ngFor="let photo of photos">
+  <div class="photoHolder" *ngFor="let photo of photos | photosFilter:filterText">
     <img src={{photo.url}} />
     <div class="photoTitle">{{photo.title}}</div>
   </div>
