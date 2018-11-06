@@ -4,8 +4,9 @@ This project was developed as a response to an exercise requested by IBM.
 
 ## What does this project do
 - `Loads photos` - Loads photos from NASA account on flickr
-- `Infinite scrolling` - uses infinite scrolling technique. That is; will keep loading new photos upon scrolling down the web page
+- `Infinite Scrolling` - uses infinite scrolling technique. That is; will keep loading new photos upon scrolling down the web page
 - `Search` - Searches for photos. Search will target photos title, tag, and description
+- `Filter` - Filters photos. Filters existing photos on the web page through title-like match. When applying filtering on the photos it will disable `Infinite Scrolling` until the filter text is cleared out
 
 ## Node.js Server
 The `server.js` file and the `server` folder represent the backbone of this project. The server does both `get` and `post` http calls.
